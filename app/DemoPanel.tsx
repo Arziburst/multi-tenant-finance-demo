@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import HeaderActions from "./components/HeaderActions";
 import StepBlock from "./components/StepBlock";
@@ -26,8 +26,22 @@ export default function DemoPanel() {
   const [transactionsRes, setTransactionsRes] = useState("");
   const [proposeRes, setProposeRes] = useState("");
   const [confirmRes, setConfirmRes] = useState("");
+  const [categories, setCategories] = useState<string[]>([]);
 
   const [loading, setLoading] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!token) {
+      setCategories([]);
+      return;
+    }
+    fetch(`${API_BASE}/api/categories`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((r) => r.json())
+      .then((data) => setCategories(Array.isArray(data?.categories) ? data.categories : []))
+      .catch(() => setCategories([]));
+  }, [token]);
 
   function clearAfterReset() {
     setToken("");
@@ -174,6 +188,7 @@ export default function DemoPanel() {
             loading={loading}
             response={proposeRes}
             onRun={runPropose}
+            categories={categories}
           />
         </StepBlock>
         <StepBlock title="4. AI Confirm">

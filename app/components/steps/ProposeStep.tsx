@@ -11,6 +11,7 @@ type Props = {
   loading: string | null;
   response: string;
   onRun: () => void;
+  categories?: string[];
 };
 
 export default function ProposeStep({
@@ -22,6 +23,7 @@ export default function ProposeStep({
   loading,
   response,
   onRun,
+  categories = [],
 }: Props) {
   return (
     <>
@@ -36,6 +38,11 @@ export default function ProposeStep({
           <option value="openai">OpenAI</option>
         </select>
       </label>
+      {categories.length > 0 && (
+        <p className="categories-hint">
+          Available categories: {categories.join(", ")}
+        </p>
+      )}
       <label>
         Question
         <input

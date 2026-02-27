@@ -231,6 +231,12 @@ body {
   gap: 0.5rem;
 }
 
+.demo-panel .categories-hint {
+  font-size: 0.8125rem;
+  color: #a1a1aa;
+  margin: 0 0 0.5rem 0;
+}
+
 .demo-panel input[type="text"],
 .demo-panel input[type="password"],
 .demo-panel select.select {
