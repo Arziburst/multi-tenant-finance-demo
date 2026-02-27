@@ -12,7 +12,6 @@ import ConfirmStep from "./components/steps/ConfirmStep";
 const API_BASE = "";
 
 export default function DemoPanel() {
-  const [secret, setSecret] = useState("1234567890");
   const [token, setToken] = useState("");
   const [question, setQuestion] = useState(
     "Recategorize my Starbucks transactions to Coffee",
@@ -56,9 +55,8 @@ export default function DemoPanel() {
     setLoading("reset");
     setResetRes("");
     try {
-      const r = await fetch(`${API_BASE}/api/demo/reset`, {
+      const r = await fetch(`${API_BASE}/api/demo/reset-app`, {
         method: "POST",
-        headers: { Authorization: `Bearer ${secret}` },
       });
       const data = await r.json().catch(() => ({}));
       setResetRes(JSON.stringify(data, null, 2));
@@ -74,9 +72,8 @@ export default function DemoPanel() {
     setLoading("bootstrap");
     setBootstrapRes("");
     try {
-      const r = await fetch(`${API_BASE}/api/demo/bootstrap`, {
+      const r = await fetch(`${API_BASE}/api/demo/bootstrap-app`, {
         method: "POST",
-        headers: { Authorization: `Bearer ${secret}` },
       });
       const data = await r.json().catch(() => ({}));
       setBootstrapRes(JSON.stringify(data, null, 2));
@@ -151,8 +148,6 @@ export default function DemoPanel() {
     <>
       <Header>
         <HeaderActions
-          secret={secret}
-          setSecret={setSecret}
           loading={loading}
           resetRes={resetRes}
           onReset={runReset}
@@ -162,8 +157,6 @@ export default function DemoPanel() {
       <div className="demo-panel">
         <StepBlock title="1. Bootstrap">
           <BootstrapStep
-            secret={secret}
-            setSecret={setSecret}
             loading={loading}
             response={bootstrapRes}
             onRun={runBootstrap}

@@ -9,7 +9,10 @@ Minimal backend demo proving: multi-tenant isolation (RLS), defense-in-depth FKs
 - **AI**: OpenAI tools/function-calling with Structured Outputs (strict: true)
 
 ## Key Endpoints
-- `POST /api/demo/bootstrap` — DEMO_ADMIN_SECRET; seeds tenants, users, profiles, transactions, categories; returns JWT for user A
+- `POST /api/demo/reset` — Bearer DEMO_ADMIN_SECRET; clears demo tenants/users (for scripts)
+- `POST /api/demo/reset-app` — No client secret; server injects DEMO_ADMIN_SECRET for in-app Reset DB
+- `POST /api/demo/bootstrap` — Bearer DEMO_ADMIN_SECRET; seeds tenants, users, profiles, transactions, categories; returns JWT for user A
+- `POST /api/demo/bootstrap-app` — No client secret; server injects DEMO_ADMIN_SECRET for in-app Run bootstrap
 - `GET /api/transactions` — User JWT; list transactions (RLS)
 - `POST /api/webhooks/plaid` — Webhook secret; idempotent ingestion by item_id → tenant
 - `POST /api/ai/propose` — User JWT; RLS transactions → OpenAI → validate → insert proposal

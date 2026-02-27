@@ -1,8 +1,6 @@
 "use client";
 
 type Props = {
-  secret: string;
-  setSecret: (v: string) => void;
   loading: string | null;
   resetRes: string;
   onReset: () => void;
@@ -10,8 +8,6 @@ type Props = {
 };
 
 export default function HeaderActions({
-  secret,
-  setSecret,
   loading,
   resetRes,
   onReset,
@@ -19,21 +15,11 @@ export default function HeaderActions({
 }: Props) {
   return (
     <div className="header-actions">
-      <label className="header-actions__label">
-        <span className="header-actions__name">DEMO_ADMIN_SECRET</span>
-        <input
-          type="password"
-          className="header-actions__input"
-          value={secret}
-          onChange={(e) => setSecret(e.target.value)}
-          placeholder="e.g. 1234567890"
-        />
-      </label>
       <button
         type="button"
         className="header-actions__btn"
         onClick={onReset}
-        disabled={!!loading || !secret}
+        disabled={!!loading}
       >
         {loading === "reset" ? "Running…" : "Reset DB"}
       </button>
